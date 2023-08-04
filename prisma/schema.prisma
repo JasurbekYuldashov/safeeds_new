@@ -41,7 +41,7 @@ model Article {
   image     String
   name      String
   pageName  String?  @default("")
-      keywords  String?  @default("auto transport company, car shipping company, car shipping companies, companies that ship cars, auto transport companies, car transport companies, best car shipping company, best company to ship a car, car moving companies, car hauling companies, auto shipping companies, vehicle transport company, vehicle transportation company, safeeds, safeeds transport, safeeds transport inc, vehicle shipping, new york auto shipping")
+  keywords  String?  @default("auto transport company, car shipping company, car shipping companies, companies that ship cars, auto transport companies, car transport companies, best car shipping company, best company to ship a car, car moving companies, car hauling companies, auto shipping companies, vehicle transport company, vehicle transportation company, safeeds, safeeds transport, safeeds transport inc, vehicle shipping, new york auto shipping")
 }
 
 model ForgetPassword {
@@ -52,4 +52,50 @@ model ForgetPassword {
   code      Int
   userId    Int
   isChecked Boolean  @default(false)
+}
+
+model FAQ {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  title       String   @default("")
+  description String   @default("")
+}
+
+model TeamUser {
+  id             Int              @id @default(autoincrement())
+  createdAt      DateTime         @default(now())
+  firstname      String
+  username       String           @unique
+  lastname       String
+  employeeSince  DateTime?
+  employeeInfo   String?
+  email          String
+  phone          String
+  hobbies        String
+  gender         Gender           @default(MALE)
+  TeamUserReview TeamUserReview[]
+}
+
+model TeamUserReview {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  startCount  Int      @default(4)
+  title       String
+  description String
+  teamUserId  Int
+  teamUser    TeamUser @relation(fields: [teamUserId], references: [id])
+}
+
+model CompanyReview {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  startCount  Int      @default(4)
+  title       String
+  description String
+  icon        String
+}
+
+enum Gender {
+  MALE
+  FEMALE
 }
