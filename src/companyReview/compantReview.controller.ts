@@ -8,21 +8,25 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { CompanyReviewService } from './compantReview.service';
-import { createFaqDto, updateFaqDto } from 'dtos';
-import { CreateCompantReviewDto, UpdateCopantReviewDto } from 'dtos/companyReview.dto';
+import { PaginationDto, createFaqDto, updateFaqDto } from 'dtos';
+import {
+  CreateCompantReviewDto,
+  UpdateCopantReviewDto,
+} from 'dtos/companyReview.dto';
 
 @Controller('company-review')
 export class CompanyReviewController {
   constructor(private readonly companyReviewService: CompanyReviewService) {}
 
   @Get('/')
-  async getAll() {
-    const data = await this.companyReviewService.getAll();
-    return { data, statusCode: HttpStatus.OK };
+  async getAll(@Query() query: PaginationDto) {
+    const result = await this.companyReviewService.getAll(query);
+    return { result, statusCode: HttpStatus.OK };
   }
 
   @Post('/')
