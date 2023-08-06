@@ -19,9 +19,11 @@ import { TeamUserController } from 'teamUser/teamUser.controller';
 import { TeamUserService } from 'teamUser/teamUser.service';
 import { TeamUserReviewController } from 'teamUserReview/teamUserReview.controller';
 import { TeamUserReviewService } from 'teamUserReview/teamUserReview.service';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
+    HttpModule,
     ConfigModule.forRoot({
       load: [configuration],
     }),

@@ -1,3 +1,4 @@
+import { HttpService } from '@nestjs/axios';
 import {
   Body,
   Controller,
@@ -10,7 +11,10 @@ import { ConfigService } from '@nestjs/config';
 
 @Controller('post-quote')
 export class PostQuoteController {
-  constructor(private configService: ConfigService) {}
+  constructor(
+    private configService: ConfigService,
+    private readonly httpService: HttpService,
+  ) {}
 
   @Post('/')
   @HttpCode(HttpStatus.OK)
@@ -18,17 +22,15 @@ export class PostQuoteController {
     try {
       const url = this.configService.get<string>('url');
       const api_key = this.configService.get<string>('token');
-      await fetch(url, {
-        method: 'POST',
-        body: {
-          ...body,
-          api_key,
-        },
+      const data = await this.httpService.post(url, {
+        ...body,
+        api_key,
       });
       return {
         message: 'Quote posted',
         statusCode: HttpStatus.OK,
         result: true,
+        data,
       };
     } catch (err) {
       throw new HttpException(
