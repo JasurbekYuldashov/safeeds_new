@@ -15,6 +15,10 @@ import { FaqService } from './faq/faq.service';
 import { FaqController } from 'faq/faq.controller';
 import { CompanyReviewController } from 'companyReview/compantReview.controller';
 import { CompanyReviewService } from 'companyReview/compantReview.service';
+import { TeamUserController } from 'teamUser/teamUser.controller';
+import { TeamUserService } from 'teamUser/teamUser.service';
+import { TeamUserReviewController } from 'teamUserReview/teamUserReview.controller';
+import { TeamUserReviewService } from 'teamUserReview/teamUserReview.service';
 
 @Module({
   imports: [
@@ -39,7 +43,16 @@ import { CompanyReviewService } from 'companyReview/compantReview.service';
     PostQuoteController,
     FaqController,
     CompanyReviewController,
+    TeamUserController,
+    TeamUserReviewController,
   ],
-  providers: [PrismaService, FaqService, FaqService, CompanyReviewService],
+  providers: [
+    PrismaService,
+    FaqService,
+    FaqService,
+    CompanyReviewService,
+    TeamUserService,
+    TeamUserReviewService,
+  ],
 })
 export class AppModule {}
