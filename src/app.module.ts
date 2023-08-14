@@ -20,6 +20,8 @@ import { TeamUserService } from 'teamUser/teamUser.service';
 import { TeamUserReviewController } from 'teamUserReview/teamUserReview.controller';
 import { TeamUserReviewService } from 'teamUserReview/teamUserReview.service';
 import { HttpModule } from '@nestjs/axios';
+import { BlogController } from 'blog/blog.controller';
+import { BlogService } from 'blog/blog.service';
 
 @Module({
   imports: [
@@ -46,6 +48,7 @@ import { HttpModule } from '@nestjs/axios';
     FaqController,
     CompanyReviewController,
     TeamUserController,
+    BlogController,
     TeamUserReviewController,
   ],
   providers: [
@@ -55,6 +58,7 @@ import { HttpModule } from '@nestjs/axios';
     CompanyReviewService,
     TeamUserService,
     TeamUserReviewService,
+    BlogService
   ],
 })
 export class AppModule {}

@@ -23,5 +23,6 @@ async function bootstrap() {
   app.enableCors();
   app.setGlobalPrefix('api');
   await app.listen(2023);
+  console.log("sadasdasd")
 }
 bootstrap();

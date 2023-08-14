@@ -95,6 +95,25 @@ model CompanyReview {
   icon        String
 }
 
+model Blog {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  title     String
+  icon      String
+  content   Int[]
+}
+
+model Content {
+  id      Int             @id @default(autoincrement())
+  type    BlogContentType
+  content String
+}
+
+enum BlogContentType {
+  TEXT
+  IMAGE
+}
+
 enum Gender {
   MALE
   FEMALE
