@@ -22,7 +22,7 @@ export class PostQuoteController {
     try {
       const url = this.configService.get<string>('url');
       const api_key = this.configService.get<string>('token');
-      const data = await this.httpService.post(url, {
+      await this.httpService.axiosRef.post(url, {
         ...body,
         api_key,
       });
@@ -30,7 +30,6 @@ export class PostQuoteController {
         message: 'Quote posted',
         statusCode: HttpStatus.OK,
         result: true,
-        data,
       };
     } catch (err) {
       throw new HttpException(
