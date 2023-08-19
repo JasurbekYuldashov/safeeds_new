@@ -22,7 +22,7 @@ export class PostQuoteController {
     try {
       const url = this.configService.get<string>('url');
       const api_key = this.configService.get<string>('token');
-      await this.httpService.axiosRef.post(url, {
+            await this.httpService.axiosRef.post(url, {
         ...body,
         api_key,
       });

@@ -93,7 +93,7 @@ export class BlogService {
         id,
       },
     });
-    const contents = this.prisma.content.findMany({
+    const contents = await this.prisma.content.findMany({
       where: { id: { in: data.content } },
     });
     return {
