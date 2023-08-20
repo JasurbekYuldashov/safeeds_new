@@ -96,11 +96,13 @@ model CompanyReview {
 }
 
 model Blog {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  title     String
-  icon      String
-  content   Int[]
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  title       String
+  description String   @default("")
+  author      String   @default("")
+  icon        String
+  content     Int[]
 }
 
 model Content {

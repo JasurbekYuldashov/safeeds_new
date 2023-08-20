@@ -13,11 +13,8 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { BlogService } from './blog.service';
-import { CreateBlogDto, PaginationDto, createFaqDto, updateFaqDto } from 'dtos';
-import {
-  CreateCompantReviewDto,
-  UpdateCopantReviewDto,
-} from 'dtos/companyReview.dto';
+import { CreateBlogDto, PaginationDto } from 'dtos';
+import { UpdateCopantReviewDto } from 'dtos/companyReview.dto';
 
 @Controller('blog')
 export class BlogController {
