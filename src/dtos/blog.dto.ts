@@ -36,7 +36,7 @@ export class UpdateBlogDto {
   @IsString()
   @IsOptional()
   description: string;
-  
+
   @IsString()
   @IsOptional()
   author: string;

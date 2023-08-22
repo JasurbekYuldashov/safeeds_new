@@ -1,16 +1,14 @@
 import {
-  BadGatewayException,
   BadRequestException,
   HttpStatus,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { CreateBlogDto, PaginationDto } from 'dtos';
-import {
-  CreateCompantReviewDto,
-  UpdateCopantReviewDto,
-} from 'dtos/companyReview.dto';
+import { UpdateCopantReviewDto } from 'dtos/companyReview.dto';
 import { PrismaService } from 'prisma/prisma.service';
+import { UpdateBlogDto } from '../dtos';
+import { Content } from '@prisma/client';
 
 @Injectable()
 export class BlogService {
@@ -73,10 +71,12 @@ export class BlogService {
     }
   }
 
-  async update(id: number, data: UpdateCopantReviewDto) {
+  async update(id: number, data: UpdateBlogDto) {
     const checkData = await this.prisma.blog.findUnique({
       where: { id },
     });
+    const content = data.content;
+    delete data.content;
     if (!checkData) {
       throw new NotFoundException({
         error: 'Not Found',
@@ -84,7 +84,26 @@ export class BlogService {
         statusCode: HttpStatus.NOT_FOUND,
       });
     }
-    return this.prisma.blog.update({ data, where: { id } });
+    const contentData =
+      content?.length > 0 &&
+      (await this.prisma.$transaction([
+        ...content.map((e) => {
+          return this.prisma.content.create({ data: e });
+        }),
+        this.prisma.content.deleteMany({
+          where: { id: { in: checkData.content } },
+        }),
+      ]));
+    return this.prisma.blog.update({
+      where: { id },
+      data: {
+        ...checkData,
+        ...data,
+        content:
+          contentData?.map?.((e: any) => e?.id as number).filter((e) => !!e) ??
+          checkData.content,
+      },
+    });
   }
 
   async getOne(id: number) {

@@ -15,6 +15,7 @@ import {
 import { BlogService } from './blog.service';
 import { CreateBlogDto, PaginationDto } from 'dtos';
 import { UpdateCopantReviewDto } from 'dtos/companyReview.dto';
+import { UpdateBlogDto } from "../dtos";
 
 @Controller('blog')
 export class BlogController {
@@ -35,7 +36,7 @@ export class BlogController {
   @Put('/:id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() body: UpdateCopantReviewDto,
+    @Body() body: UpdateBlogDto,
   ) {
     const data = await this.blogService.update(id, body);
     return { data, statusCode: HttpStatus.OK };

@@ -12,7 +12,7 @@ import { extname } from 'path';
 
 @Controller('image-upload')
 export class FileUploadController {
-  constructor() {}
+  // constructor() {}
 
   @Post('/')
   @UseInterceptors(
@@ -36,6 +36,9 @@ export class FileUploadController {
       case 'image/png':
       case 'image/jpeg':
       case 'image/jpg':
+      case 'image/svg+xml':
+      case 'application/xml':
+      case 'image/webp':
         return {
           statusCode: 200,
           result: {
